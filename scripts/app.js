@@ -32,9 +32,13 @@ loader
 function setup(){
     let monkey = new Sprite(resources.monkeyface.texture);
     app.stage.addChild(monkey);
-    console.log("setup");
+    console.log("All Files Loaded.");
 }
 
-function loadProgressHandler(){
-    console.log("loading");
+function loadProgressHandler(loader, resource){
+    console.log("loading: " + resource.url);
+
+    console.log("progress: " + loader.progress + "%");
+
+    console.log("loading: " + resource.name);
 }
