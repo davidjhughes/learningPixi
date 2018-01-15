@@ -1,9 +1,13 @@
-let type = "WebGL"
+let type = "WebGL",
+Application = PIXI.Application,
+loader = PIXI.loader,
+resources = PIXI.loader.resources,
+Sprite = PIXI.Sprite
 if(!PIXI.utils.isWebGLSupported()){
     type="canvas"
 }
 
-let app = new PIXI.Application({
+let app = new Application({
     width: 256, 
     height: 256,
     antialias: true,
@@ -20,9 +24,17 @@ app.renderer.resize(window.innerWidth, window.innerHeight);
 // PIXI.utils.sayHello(type)
 document.body.appendChild(app.view);
 
-PIXI.loader.add("../images/monkeyface.jpg").load(setup);
+loader
+.add("monkeyface", "../images/monkeyface.jpg")
+.on("progress", loadProgressHandler)
+.load(setup);
 
 function setup(){
-    let monkey = new PIXI.Sprite(PIXI.loader.resources["../images/monkeyface.jpg"].texture);
+    let monkey = new Sprite(resources.monkeyface.texture);
     app.stage.addChild(monkey);
+    console.log("setup");
+}
+
+function loadProgressHandler(){
+    console.log("loading");
 }
