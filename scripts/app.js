@@ -19,3 +19,10 @@ app.renderer.resize(window.innerWidth, window.innerHeight);
 
 // PIXI.utils.sayHello(type)
 document.body.appendChild(app.view);
+
+PIXI.loader.add("../images/monkeyface.jpg").load(setup);
+
+function setup(){
+    let monkey = new PIXI.Sprite(PIXI.loader.resources["../images/monkeyface.jpg"].texture);
+    app.stage.addChild(monkey);
+}
