@@ -2,7 +2,10 @@ let type = "WebGL",
 Application = PIXI.Application,
 loader = PIXI.loader,
 resources = PIXI.loader.resources,
-Sprite = PIXI.Sprite
+Sprite = PIXI.Sprite,
+TextureCache = PIXI.utils.TextureCache,
+Rectangle = PIXI.Rectangle
+
 if(!PIXI.utils.isWebGLSupported()){
     type="canvas"
 }
@@ -25,13 +28,24 @@ app.renderer.resize(window.innerWidth, window.innerHeight);
 document.body.appendChild(app.view);
 
 loader
-.add("monkeyface", "../images/monkeyface.jpg")
+.add(["../images/monkeyface.jpg", "../images/09.png"])
 .on("progress", loadProgressHandler)
 .load(setup);
 
 function setup(){
-    let monkey = new Sprite(resources.monkeyface.texture);
-    app.stage.addChild(monkey);
+    // let monkey = new Sprite(resources["../images/monkeyface.jpg"].texture);
+    // app.stage.addChild(monkey);
+    // monkey.scale.set(0.5, 0.5);
+    // monkey.anchor.set(0.5,0.5);
+    // monkey.position.set(monkey.width, monkey.height);
+    // monkey.rotation = 0.6;
+    let tileset = TextureCache["../images/09.png"];
+    let rect = new Rectangle(192, 128, 64, 64);
+    tileset.frame = rect;
+    let rocket = new Sprite(tileset);
+    rocket.position.set(32,32);
+    app.stage.addChild(rocket);
+    // app.renderer.render(stage);
     console.log("All Files Loaded.");
 }
 
